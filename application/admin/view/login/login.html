@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>松果酒店管理后台</title>
+
+
+
+    <meta name="description" content="Dashboard">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!--Basic Styles-->
+
+    <link href="__STATIC__/admin/style/bootstrap.css" rel="stylesheet">
+
+    <link href="__STATIC__/admin/style/font-awesome.css" rel="stylesheet">
+
+    <link href="__STATIC__/admin/style/weather-icons.css" rel="stylesheet">
+
+
+
+    <!--Beyond styles-->
+
+    <link id="beyond-link" href="__STATIC__/admin/style/beyond.css" rel="stylesheet" type="text/css">
+
+    <link href="__STATIC__/admin/style/demo.css" rel="stylesheet">
+
+    <link href="__STATIC__/admin/style/typicons.css" rel="stylesheet">
+
+    <link href="__STATIC__/admin/style/animate.css" rel="stylesheet">
+
+    <script type="text/javascript"  src="__STATIC__/admin/style/jquery-3.2.1.min.js"></script>
+
+    <!--<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>-->
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#sub").click(function () {
+
+                $.ajax({
+
+                    type: "POST",
+
+                    url: "{:url('check_login')}",
+
+                    data: $("form").serialize(),
+
+                    dataType: 'json',
+
+                    success: function (data) {
+
+                        if (typeof data ==='number') {
+
+                            if (data === 5) {
+
+                                window.location.href = "{:url('index/index')}"
+
+                            }
+
+                            if (data === 4) {
+
+                                alert('您所在的组别已失效');
+
+                            }
+
+                            if (data === 3) {
+
+                                alert('密码不正确');
+
+                            }
+
+                            if (data === 2) {
+
+                                alert('用户已被禁用,请联系管理员');
+
+                            }
+
+                            if (data === 1) {
+
+                                alert('用户不存在');
+
+                            }
+
+                            if (data === 0) {
+
+                                alert('验证码错误');
+
+                            }
+
+                        }
+
+                        else {
+
+                            alert(data);
+
+                        }
+
+                    }
+
+                });
+
+            });
+
+            $("#show").click(function () {
+
+                $("#image").attr("src","{:captcha_src()}?+Math.random()")
+
+
+
+            })
+
+        });
+
+    </script>
+
+
+
+
+
+</head>
+
+<!--Head Ends-->
+
+<!--Body-->
+
+
+
+<body>
+
+<div class="login-container animated fadeInDown">
+
+    <form action="" method="post" onsubmit="return false">
+
+        <div class="loginbox bg-white" style="border-radius: 5px;box-shadow: 8px 8px 16px #888888;">
+
+            <div class="loginbox-title" style="margin-bottom: 15px">登陆后台</div>
+
+            <div class="loginbox-textbox">
+
+                <input value="" class="form-control" placeholder="请输入管理员账号" name="username" type="text" required>
+
+            </div>
+
+            <div class="loginbox-textbox">
+
+                <input class="form-control" placeholder="请输入密码" name="password" type="password" required>
+
+            </div>
+
+            <div class="loginbox-textbox" style="margin-top: 8px;margin-bottom: -12px">
+
+                    <!--<span class="form-control" style="width:100px;float:left;padding: 5px; margin-top: -9px">点击图片刷新 </span>-->
+
+                <!--<img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random();" width="120" height="35" style="float:left; cursor:pointer;position: relative;margin-top: -9px; " alt="captcha"/>-->
+
+                <span class="">
+
+                    <img id="image"  src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random();" width="120" height="36" style="border-radius: 5px;float:left; cursor:pointer;position: relative;margin-top: -9px;" alt="captcha"/>
+
+                    <a href="#"><span id="show"  class="glyphicon glyphicon-repeat" style="color: red">看不清,换一张</span></a>
+
+                </span>
+
+            </div>
+
+            <div class="loginbox-textbox " style="margin-top: 18px">
+
+                <input type="text" class="form-control" id="code" name="code" placeholder="验证码"
+
+                       aria-describedby="basic-addon2" required>
+
+            </div>
+
+            <div class="loginbox-submit">
+
+                <input class="btn btn-primary btn-block" value="登陆" type="submit" id="sub">
+
+                <!--<button id="test">测试</button>-->
+
+            </div>
+
+        </div>
+
+        <div class="logobox" style="border-radius: 5px;box-shadow: 8px 8px 16px #888888;">
+
+            <p class="text-center h5">松果酒店管理系统</p>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!--Basic Scripts-->
+
+
+
+<script src="__STATIC__/admin/style/jquery.js"></script>
+
+<script src="__STATIC__/admin/style/jquery_002.js"></script>
+
+<script src="__STATIC__/admin/style/bootstrap.js"></script>
+
+<!--Beyond Scripts-->
+
+<script src="__STATIC__/admin/style/beyond.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+{include file="public/head" /}
+    <!-- /header -->
+    <!-- breadcrumbs -->
+    <section class="breadcrumbs" style="background-image: url(__STATIC__/index/images/breadcrumbs/reservation.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="h1">Search Results</h1>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb">
+                        <li><a href="{:url('index')}">主页</a><i class="fa fa-angle-right"></i></li>
+                        <li class="active">搜索结果</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /breadcrumbs -->
+    <section class="contact-block">
+        <div class="container">
+            <div class="contact-block_form">
+                <!--<div class="row">-->
+                <!--<div class="contact-block_info">-->
+                <!--<div class="col-md-4">-->
+                <!--<div class="contact-block_i">-->
+                <!--<div class="info_icon">-->
+                <!--<i class="fa fa-home"></i>-->
+                <!--</div>-->
+                <!--<div class="info_txt"><span>4桂林理工大学(雁山)</span></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                <!--<div class="contact-block_i">-->
+                <!--<div class="info_icon">-->
+                <!--<i class="fa fa-envelope-o"></i>-->
+                <!--</div>-->
+                <!--<div class="info_txt"><span>Durex@email.com</span></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                <!--<div class="contact-block_i">-->
+                <!--<div class="info_icon">-->
+                <!--<i class="fa fa-phone"></i>-->
+                <!--</div>-->
+                <!--<div class="info_txt"><span>0773-3555666</span></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <div class="container">
+                    <div class="title-main">
+                        <h2 class="h2">搜索结果<span class="title-secondary">已根据你的条件为你找出最合适您的房间</span></h2>
+                    </div>
+                    <div class="best-room-carousel">
+                        <ul class="row best-room_ul">
+                            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12 best-room_li">
+                                <div class="best-room_img">
+                                    <a href="#"><img src="__UPLOAD__\{$res_info.thumb}" alt=""></a>
+                                    <div class="best-room_overlay">
+                                        <div class="overlay_icn"><a href="{:url('detail',array('id'=>$res_info.id))}"></a></div>
+                                    </div>
+                                </div>
+                                <div class="best-room-info">
+                                    <div class="best-room_t"><a href="{:url('detail',array('id'=>$res_info.id))}">{$res_info.type}</a></div>
+                                    <div class="best-room_desc">{$res_info.description|substr=0,132}······
+                                    </div>
+                                    <div class="best-room_price">
+                                        <span>{$res_info.price}元</span> / 天
+                                    </div>
+                                </div>
+                            </li>
+                            {volist name="rec_you" id="vo"}
+                            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12 best-room_li">
+                                <div class="best-room_img">
+                                    <a href="#"><img src="__UPLOAD__\{$vo.thumb}" alt=""></a>
+                                    <div class="best-room_overlay">
+                                        <div class="overlay_icn"><a href="{:url('detail',array('id'=>$vo.id))}"></a></div>
+                                    </div>
+                                </div>
+                                <div class="best-room-info">
+                                    <div class="best-room_t"><a href="{:url('detail',array('id'=>$vo.id))}">{$vo.type}</a></div>
+                                    <div class="best-room_desc">{$vo.description|substr=0,132}······</div>
+                                    <div class="best-room_price">
+                                        <span>{$vo.price}元</span>/天
+                                    </div>
+                                </div>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- /main wrapper -->
+    <!-- footer -->
+{include file="public/footer" /}

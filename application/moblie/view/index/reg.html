@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户注册</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+<script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+<script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<header data-am-widget="header" class="am-header am-header-default my-header">
+      <div class="am-header-left am-header-nav">
+        <a href="{:url('index')}" class="">
+          <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+      </div>
+      <h1 class="am-header-title">
+        <a href="#title-link" class="">用户注册</a>
+      </h1>
+
+    </header>
+    <div class="cart-panel">
+		<form class="am-form" action="{:url('regdo')}" method="post">
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-user" style="color:#329cd9"></i>
+                <input type="text" class="am-form-field  my-radius" placeholder="请输入您的用户名" name="username">
+            </div>
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-lock" style="color:#329cd9"></i>
+                <input type="password" class="am-form-field  my-radius" placeholder="请输入您的密码" name="password">
+            </div>
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-lock" style="color:#e9c740"></i>
+                <input type="password" class="am-form-field  my-radius" placeholder="请重复输入一次密码" name="comfir_password">
+            </div>
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-envelope" style="color:#78c3ca"></i>
+                <input type="text" class="am-form-field  my-radius" placeholder="请输入邮箱地址" name="email">
+            </div>
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-phone" style="color:#f09513"></i>
+                <input type="text" class="am-form-field  my-radius" placeholder="请输入联系电话" name="phone" >
+            </div>
+            <div class="am-checkbox">
+              <label>
+                <input type="checkbox"> 我已阅读并同意<a href="#">《协议》</a>
+              </label>
+            </div>
+            <p class="am-text-center"><input type="submit" class="am-btn am-btn-danger am-radius am-btn-block" value="立即注册"></p>
+        </form>
+    </div>
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2017 Pinenuts Hotel</p>
+            <p>桂ICP备729631422</p>
+        </div>
+    </footer>
+    <!--底部-->
+
+</div>
+</body>
+</html>

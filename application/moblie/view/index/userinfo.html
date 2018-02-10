@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我的资料</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+    <script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+    <script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <header data-am-widget="header" class="am-header am-header-default my-header">
+        <div class="am-header-left am-header-nav">
+            <a href="{:url('index')}" class="">
+                <i class="am-header-icon am-icon-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">我的资料</a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="{:url('index')}" class="">
+                <i class="am-header-icon  am-icon-home"></i>
+            </a>
+        </div>
+
+    </header>
+    <div class="uchome-info" style="height:auto">
+        <div class="uchome-info-uimg">
+            <img src="__STATIC__/moblie/default/800.jpeg"/>
+        </div>
+        <div class="uchome-info-uinfo">
+            <p>昵称：{$userinfo.username}</p>
+            <p>等级：<span class="red">
+                {switch name="userinfo.level"}
+                    {case value="1"}王者{/case}
+                    {case value="2"}白银{/case}
+                    {case value="3"}黄金{/case}
+                    {case value="4"}钻石{/case}
+                    {case value="5"}王者{/case}
+                    {default /}default
+                {/switch}
+
+            </span></p>
+            <p>手机：{$userinfo.phone}</p>
+            <p>积分：<span class="red">{$userinfo.integral}</span></p>
+
+        </div>
+    </div>
+    <!--头部导航-->
+
+    <div class="am-cf uchome-apps">
+        <ul class="am-avg-sm-3 uchome-apps-ul">
+            <li><a href="{:url('done',array('flag'=>1))}"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp1.png"
+                                                 class="am-img-responsive"/></p>
+                <p class="namep">待入住订单</p>
+                <p class="lastp">{$mixed.stay}笔</p></a></li>
+            <li><a href="{:url('done',array('flag'=>2))}"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp2.png"
+                                                 class="am-img-responsive"/></p>
+                <p class="namep">已完成订单</p>
+                <p class="lastp">{$mixed.done}笔</p></a></li>
+            <li><a href="{:url('done',array('flag'=>0))}"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp3.png"
+                                                 class="am-img-responsive"/></p>
+                <p class="namep">消费记录</p>
+                <p class="lastp">{$mixed.total}笔</p></a></li>
+            <li><a href=""><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp4.png" class="am-img-responsive"/></p>
+                <p class="namep">失效订单</p>
+                <p class="lastp">{$mixed.expired}笔</p></a></li>
+            <li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp5.png" class="am-img-responsive"/></p>
+                <p class="namep">积分充值</p>
+                <p class="lastp">0个</p></a></li>
+            <li><a href="{:url('logout')}"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp8.png" class="am-img-responsive"/></p>
+                <p class="namep">退出登入</p>
+                <p class="lastp">0条</p></a></li>
+            <!--<li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp7.png" class="am-img-responsive"/></p>-->
+                <!--<p class="namep">收藏商品</p>-->
+                <!--<p class="lastp">0件</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp8.png" class="am-img-responsive"/></p>-->
+                <!--<p class="namep">申请提现</p>-->
+                <!--<p class="lastp">￥0</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp9.png" class="am-img-responsive"/></p>-->
+                <!--<p class="namep">我的推广</p>-->
+                <!--<p class="lastp">160</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp10.png" class="am-img-responsive" /></p><p class="namep">我的粉丝</p><p class="lastp">0位</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp11.png" class="am-img-responsive" /></p><p class="namep">我的伙伴</p><p class="lastp">0位</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp12.png" class="am-img-responsive" /></p><p class="namep">我的消息</p><p class="lastp">0条</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp13.png" class="am-img-responsive" /></p><p class="namep">金币充值</p><p class="lastp">￥0</p></a></li>-->
+        </ul>
+
+    </div>
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2017 Pinenuts Hotel</p>
+            <p>桂ICP备729631422</p>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>

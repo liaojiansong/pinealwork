@@ -1,0 +1,188 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">入住办理</a>
+                    </li>
+                    <li class="active">到店订购</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">入住办理</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <form class="form-horizontal" role="form" action="{:url('inquire',array('stamp'=>'buynow'))}" onsubmit="return false" method="post">
+                                        <div class="form-group">
+                                            <label for="name"
+                                                   class="col-sm-2 control-label no-padding-right">选择房型:</label>
+                                            <div class="col-sm-6">
+                                                <select name="type" id="room_type" style="width: 100%;">
+                                                    <option >请选择一个房型</option>
+                                                    {volist name="room_type" id="vo"}
+                                                    <option value="{$vo.id}">{$vo.type}/{$vo.price}元</option>
+                                                    {/volist}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="check_in"
+                                                   class="col-sm-2 control-label no-padding-right">入住日期:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="check_in" placeholder="请输入入住日期" name="check_in"
+                                                       required  type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="check_out"
+                                                   class="col-sm-2 control-label no-padding-right">离店时间:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="check_out" placeholder="请输入离店日期" name="check_out"
+                                                       required type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="check"
+                                                   class="col-sm-2 control-label no-padding-right">检测余房:</label>
+                                            <div class="col-sm-6">
+                                                <button type="button"  id="check" class="btn btn-primary">点我检测</button>&nbsp;&nbsp;&nbsp;&nbsp;<span id="msg" style="color: red"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="pid"
+                                                   class="col-sm-2 control-label no-padding-right">选择房间:</label>
+                                            <div class="col-sm-6">
+                                                <select id="rooms" name="tmp_room" style="width: 100%;" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name"
+                                                   class="col-sm-2 control-label no-padding-right">客户姓名:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="name" placeholder="请输入客户的名字" name="name" type="text" required>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="condition"
+                                                   class="col-sm-2 control-label no-padding-right">身份证号:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="condition" placeholder="请输入大陆身份证号码"
+                                                       name="id_card" type="text" required>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sort" class="col-sm-2 control-label no-padding-right">联系电话:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="phone" placeholder="请输入客人的联系电话" name="phone"
+                                                       value="" type="text" required>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sort"
+                                                   class="col-sm-2 control-label no-padding-right">入住人数:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="people" placeholder="" name="sort"
+                                                       value="" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sort"
+                                                   class="col-sm-2 control-label no-padding-right">备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注:</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="remark" placeholder="" name="remark"
+                                                       value="" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <input type="text" value="buy" name="stamp" hidden>
+                                                <button type="submit" id="sub" class="btn btn-danger">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->
+<script>
+    $(document).ready(function () {
+        $("#check").click(function () {
+            $.ajax({
+                type: "post",
+                url: "{:url('inquire')}",
+                data: {stamp:"getCate",type: $("#room_type").val(),check_in: $("#check_in").val(),check_out: $("#check_out").val()},
+                dataType: 'json',
+                success: function (data) {
+                    $("#rooms option").remove();
+                    //只能遍历索引数组,low
+                    for (var i = 0; i < data.length; i++) {
+                        var room = '<option value=' + data[i] + '>' + data[i] + '</option>';
+                        $("#rooms").append(room);
+                    }
+                }
+            });
+        });
+        $("#sub").click(function () {
+//            var str= $("#room_type").find("option:selected").text();
+//            $("#str").val("str");
+            $.ajax({
+                type: "post",
+                url: "{:url('inquire')}",
+                data: $("form").serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (typeof data === 'number') {
+                        if (data ===1) {
+                            alert('订购成功');
+                            window.location.href="{:url('checking/list')}"
+                        }
+                        if (data ===0) {
+                            alert('订购失败');
+                        }
+                    }else {
+                        alert(data);
+                    }
+                }
+            });
+        });
+
+    });
+</script>

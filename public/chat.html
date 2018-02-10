@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高级开黑房</title>
+    <style>
+        html,
+        body {
+            padding: 0px;
+            margin: 0px;
+            background: #222;
+            font-family: 'Karla', sans-serif;
+            color: #FFF;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0px 2px 2px 0px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            margin: 20px auto;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            max-width: 600px;
+            background: #4772C1;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+            animation: flyin 0.75s;
+        }
+
+        .container .messages {
+            height: 300px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            overflow-y: scroll;
+            border-radius: 2px;
+        }
+
+        .container .messages .message {
+            padding: 10px;
+            animation: fade 0.25s;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .container .input {
+            display: flex;
+            margin: 0px 20px 20px 20px;
+        }
+
+        .container .input .btn,
+        .container .input .emoji-btn {
+            height: 40px;
+            line-height: 40px;
+            width: 75px;
+            text-align: center;
+            background: #222;
+            border-radius: 2px;
+            margin-left: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .container .input .btn:hover {
+            background: #333;
+            cursor: pointer;
+        }
+
+        .container .input input {
+            border-radius: 2px;
+            margin-right: 0px;
+            border: none;
+            width: 100%;
+            flex: 1;
+            padding: 0px 20px;
+            background: #222;
+            color: white;
+            font-weight: 600;
+            outline: none;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes flyin {
+            from {
+                transform: translateY(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0px);
+                opacity: 1;
+            }
+        }
+
+
+
+
+
+        .emoji-popup .emoji-img {
+            margin: auto;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .emoji-popup .emoji-img:hover {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+
+        .emoji-btn.open .emoji-popup {
+            opacity: 1;
+            pointer-events: initial;
+        }
+        .messages div {
+            padding: 3px;
+            animation: fade 0.25s;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .messages div p {
+            margin: 3px;
+        }
+        .messages div p span{
+            font-size: 0.8rem;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        /*
+        * 1 建立连接，服务端发送当前的client_id 登入type
+        * 2 触发ommessage 函数，向屏幕写上线信息，并将client写入input中
+        * 3 输入文字，点击触发事件，往屏幕写当前的数据，同时向服务端发送内容
+        * 4 服务器返回信息，判断类型，写到屏幕
+        * */
+        $(document).ready(function () {
+
+            /*
+             * 1 向服务端发送当前的数据  sendToServer()
+             * 2 向屏幕写当前的数据      writeScreen()
+             * 3 将服务端接收的写到屏幕  writeScreenFromServer
+             * */
+
+            /*
+             * 1 向服务端发送当前的数据  sendToServer()
+             * 2 向屏幕写当前的数据      writeScreen()
+             * */
+
+
+            var ws = new WebSocket("ws://120.78.78.42:8282");
+
+            $(".btn").click(function () {
+                var content = $("#input").val();
+                var client_id = $("#id").val();
+//                write_screen(client_id, content);
+                ws.send(content);
+            });
+
+            function write_screen(name, content) {
+                var date = new Date();
+                var time = date.getUTCMonth() + 1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                var html = "<div><p><span>(" + time + ")</span>" + name + "说:</p><p>" + content + "</p></div>";
+                $(".messages").append(html);
+                $("input").val("");
+            }
+
+            /*
+             * 3 将服务端接收的写到屏幕  writeScreenFromServer
+             * */
+            ws.onmessage = function (e) {
+                var data = JSON.parse(e.data);
+                if (data["type"]==="init"){
+                    write_screen(data["client_id"],"我来了");
+                    $("#id").val(data["client_id"]);
+                }else if(data["type"] === "msg"){
+                    write_screen(data["client_id"], data["content"]);
+                }else {
+                    console.log(data);
+                }
+            };
+
+        })
+
+    </script>
+
+
+</head>
+<body>
+<h1>小松果特别定制版迷你聊天应用程序</h1>
+<div class="container">
+    <div class="messages">
+        <div>
+            <input type="text" id="id" value="" hidden>
+        </div>
+    </div>
+    <div class="input">
+        <input type="text" placeholder="写点什么吧" id="input"/>
+        <div class="btn">发送</div>
+    </div>
+</div>
+</body>
+</html>
+

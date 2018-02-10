@@ -1,0 +1,115 @@
+
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">入住办理</a>
+                    </li>
+                    <li class="active">余房查询</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll" style="margin-bottom: 50px;">
+                                    <form class="form-inline  table-bordered " action="{:url('checking/remaining')}" method="post">
+                                        <div class="form-group" style="margin-right: 80px;margin-left: 180px">
+                                            <label for="check_in"><span class="h4">入住日期:</span></label>
+                                            <input type="text" class="form-control" id="check_in" name="check_in" placeholder="">
+                                        </div>
+                                        <div class="form-group" style="margin-right: 80px">
+                                            <label for="check_out"><span class="h4">离店日期:</span></label>
+                                            <input type="text" class="form-control" id="check_out" name="check_out" placeholder="">
+                                        </div>
+                                        <span type="submit" id="check" class="btn btn-danger"><span class="h4">立即查询</span></span>
+                                    </form>
+                                </div>
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover" id="lok">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center">房型名称</th>
+                                            <th class="text-center">已售</th>
+                                            <th class="text-center">余量</th>
+                                            <th class="text-center">总数</th>
+                                            <th class="text-center">入住率</th>
+                                            <th class="text-center">余房具体房间号</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="reroom" id="remain"}
+                                        <tr>
+                                            <td align="center">{$remain['type']}</td>
+                                            <td align="center">{$remain['sale']}</td>
+                                            <td align="center">{$remain['remain_num']}</td>
+                                            <td align="center">{$remain['total']}</td>
+                                            <td align="center">{$remain['percent']}</td>
+                                            <td align="center">
+                                                {foreach $remain['remain'] as $vo}
+                                                {$vo}
+                                                {/foreach}
+                                            </td>
+                                        </tr>
+                                        {/volist}
+
+                                        </tbody>
+                                    </table>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->
+    <script>
+        $(document).ready(function () {
+            $("#check").click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "{:url('checking/check_remain')}",
+                    data: $("form").serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+
+                            $("#lok td").remove();
+                        for (var i = 0; i < data.length; i++) {
+                            var room = '<tr> <td align="center" ' + '>' + data[i].type + '</td>'
+                                + '<td align="center" ' + '>' + data[i].sale + '</td>'
+                                + '<td align="center" ' + '>' + data[i].remain_num + '</td>'
+                                + '<td align="center" ' + '>' + data[i].total + '</td>'
+                                + '<td align="center" ' + '>' + data[i].percent + '</td>'
+                                + '<td align="center" ' + '>' + data[i].remain + '</td> </tr>'
+                            $("#lok").append(room);
+                                }
+                    }
+                })
+            });
+        });
+
+
+    </script>

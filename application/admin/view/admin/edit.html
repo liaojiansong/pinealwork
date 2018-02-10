@@ -1,0 +1,91 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">管理员管理</a>
+                    </li>
+                    <!--<li>-->
+                    <!--<a href="#">添加房型</a>-->
+                    <!--</li>-->
+                    <li class="active">编辑管理员</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">新增房型</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <form class="form-horizontal" role="form" action="{:url('deal')}" method="post">
+                                        <div class="form-group">
+                                            <label for="group_id"
+                                                   class="col-sm-2 control-label no-padding-right">所属的组别</label>
+                                            <div class="col-sm-6">
+                                                <select name="group_id" style="width: 100%;">
+                                                {volist name="group" id="vo"}
+                                                    <option selected="selected" value="{$vo.group_id}">{$vo.title}</option>
+                                                 {/volist}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username"
+                                                   class="col-sm-2 control-label no-padding-right">管理员名称</label>
+                                            <div class="col-sm-6">
+
+                                                <input class="form-control" id="username" placeholder="" name="username" required="" value="{$user.username}" type="text">
+
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                            <input name="user_id" value="{$user.id}" hidden>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password"
+                                                   class="col-sm-2 control-label no-padding-right">管理员密码</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="password" placeholder="" name="password"
+                                                       required="" type="password">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->

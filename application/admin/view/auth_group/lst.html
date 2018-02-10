@@ -1,0 +1,92 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">角色管理</a>
+                    </li>
+                    <li class="active">角色列表</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <button type="button" tooltip="添加用户" class="btn btn-sm btn-azure btn-addon"
+                        onClick="javascript:window.location.href = '{:url('addroom')}'"><i class="fa fa-plus"></i>
+                    Add
+                </button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <form action="" method="post">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="">
+                                            <tr>
+                                                <th class="text-center" width="10%">ID</th>
+                                                <th class="text-center">用户组名称</th>
+                                                <th class="text-center">启用状态</th>
+                                                <th class="text-center" width="20%">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {volist name="groupshow" id="show"}
+                                            <tr>
+                                                <td align="center">{$show.group_id}</td>
+                                                <td align="center">{$show.title}</td>
+                                                <td align="center">
+                                                    {if condition="$show['status'] eq 1"}
+                                                    <a class="btn btn-success btn-sm" href="javascript:void(0);">启用</a>
+                                                    {else/}
+
+                                                    <a class="btn btn-darkorange btn-sm"
+                                                       href="javascript:void(0);">禁用</a>
+                                                    {/if}
+                                                </td>
+                                                <td align="center">
+                                                    <a href="{:url('edit',array('group_id'=>$show['group_id']))}"
+                                                       class="btn btn-primary btn-sm shiny">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="#"
+                                                       onClick="warning('确实要删除吗',{:url('delete',array('group_id'=>$show['group_id']))} )"
+                                                       class="btn btn-danger btn-sm shiny">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {/volist}
+
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->

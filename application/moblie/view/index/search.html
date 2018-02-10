@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>查询结果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+    <script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+    <script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <header data-am-widget="header" class="am-header am-header-default my-header">
+        <div class="am-header-left am-header-nav">
+            <a href="{:url('index')}" class="">
+                <i class="am-header-icon am-icon-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">查询结果</a>
+        </h1>
+
+    </header>
+
+    <div class="gray-panel">
+        <div class="paoduct-title-panel">
+            <h2 class="checkout-h2">根据你的条件为你找出</h2>
+            <div class="cart-list-panel">
+                <ul class="am-avg-sm-1 cart-panel-ul">
+                    <li>
+                        <div class="imgpanel" style="padding-right: 2%;padding-left: 0%">
+                            <a href="{:url('detail',array('id'=>$res_info.id))}">
+                                <img src="__UPLOAD__\{$res_info.thumb}" class="am-img-responsive" style="height: 100%"/>
+                            </a>
+                        </div>
+                        <div class="infopanel" style="margin-left: 4.6%">
+                            <h3><a href="{:url('detail',array('id'=>$res_info.id))}">{$res_info.type}</a></h3>
+                            <p>价格：{$res_info.price}元</p>
+                            <p>早餐：<span class="red2 bold">{if condition="$res_info['breakfast'] eq 1" }免费{else /}收费{/if}</span></p>
+                            <p>接送：<span class="red2 bold">{if condition="$res_info['shuttle'] eq 1" }免费{else /}收费{/if}</span></p>
+                            <p>洗衣：<span class="red2 bold">{if condition="$res_info['laundry'] eq 1" }免费{else /}收费{/if}</span></p>
+                        </div>
+                    </li>
+                    {volist name="rec_you" id="vo"}
+                    <li>
+                        <div class="imgpanel" style="padding-right: 2%;padding-left: 0%" >
+                            <a href="{:url('detail',array('id'=>$vo.id))}">
+                            <img src="__UPLOAD__\{$vo.thumb}" class="am-img-responsive" style="height: 100%"/>
+                            </a>
+                        </div>
+                        <div class="infopanel" style="margin-left: 4.6%">
+                            <h3><a href="{:url('detail',array('id'=>$vo.id))}">{$vo.type}</a></h3>
+                            <p>价格：{$vo.price}元</p>
+                            <p>早餐：<span class="red2 bold">{if condition="$vo['breakfast'] eq 1" }免费{else /}收费{/if}</span></p>
+                            <p>接送：<span class="red2 bold">{if condition="$vo['shuttle'] eq 1" }免费{else /}收费{/if}</span></p>
+                            <p>洗衣：<span class="red2 bold">{if condition="$vo['laundry'] eq 1" }免费{else /}收费{/if}</span></p>
+                        </div>
+                    </li>
+                    {/volist}
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2017 Pinenuts Hotel</p>
+            <p>桂ICP备729631422</p>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

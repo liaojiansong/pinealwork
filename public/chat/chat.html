@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>酷聊 Cool-Chat</title>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0/fa/css/font-awesome.css">
+    <link rel='stylesheet prefetch' href='base.css'>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /**
+             * 加载表情包
+             */
+            function loadEmoji() {
+                $(".emoji-box").hide();
+                var emojiList = document.querySelector(".emoji-list");
+                var img_soucre = new Array("http://pics.sc.chinaz.com/Files/pic/faces/4936/01.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/02.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/03.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/04.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/05.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/06.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/07.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/08.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/09.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4936/10.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/00.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/01.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/02.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/03.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/04.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/05.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/06.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/07.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/08.gif", "http://pics.sc.chinaz.com/Files/pic/faces/4916/09.gif",)
+                for (x in img_soucre) {
+                    emojiList.innerHTML += "<li class=\"emoji-one\"><img src=\"" + img_soucre[x] + "\"></li>";
+                }
+            }
+
+            /**
+             * 加载好友分组
+             * @param header_img_src
+             * 头像资源名
+             * @param name
+             * 昵称
+             * @param status
+             * 状态
+             */
+            function load_firends(header_img_src, name, status) {
+                if (status === 0) {
+                    var icon = "offline";
+                    var status = "离线";
+                } else {
+                    var icon = "online";
+                    var status = "在线";
+                }
+                // 对机器人的加载要差别对待
+                if (name === "小松果(聊天机器人)") {
+                    var firends = "<li class=\"clearfix list_people\"><input type=\"text\" value=\"robot\" hidden><img src=\"" + header_img_src + "\"/><div class=\"about\"><div class=\"name\">" + name + "</div><div class=\"status\"><i class=\"fa fa-circle " + icon + "\"></i>24小时在线</div></div></li>";
+
+                } else {
+                    var firends = "<li class=\"clearfix list_people\"><input type=\"text\" value=\"firends\" hidden><img src=\"" + header_img_src + "\"/><div class=\"about\"><div class=\"name\">" + name + "</div><div class=\"status\"><i class=\"fa fa-circle " + icon + "\"></i> " + status + "</div></div></li>";
+                }
+                $("#list-firends").append(firends);
+            }
+
+            /**
+             * 加载分组列表
+             * @param header_img_src
+             * 群头像
+             * @param name
+             * 群名
+             * @param num
+             * 群人数
+             */
+            function load_groups(header_img_src, name, num) {
+                var groups = "<li class=\"clearfix list_people\"><input type=\"text\" value=\"groups\" hidden><img src=\"" + header_img_src + "\"/><div class=\"about\"><div class=\"name\">" + name + "</div><div class=\"status\"><i class=\"fa fa-user-o online\"></i><span>" + num + "</span></div></div></li>";
+                $("#list-groups").append(groups);
+            }
+
+            /**
+             * 向界面加载聊天内容
+             * @param for_who
+             * 0表示加载自己发出去的消息，1表示其他人发来的
+             * @param name
+             * 这条消息的主人
+             * @param time
+             * 时间
+             * @param img_src
+             * 头像图片地址
+             * @param content
+             * 内容
+             */
+            function chat_text(for_who, name, time, img_src, content) {
+                var me = "<li class=\"clearfix\"><div class=\"message-data align-right\"><span class=\"message-data-time\">" + time + "</span> &nbsp; &nbsp;<span class=\"message-data-name\">" + name + "</span> <i class=\"fa fa-circle me\"></i><img src=\"" + img_src + "\"/></div><div class=\"message other-message float-right\">" + content + "</div></li>";
+                var he = "<li><div class=\"message-data\"><img src=\"" + img_src + "\"/><span class=\"message-data-name\"><i class=\"fa fa-circle online\"></i>" + name + "</span><span class=\"message-data-time\">" + time + "</span></div><div class=\"message my-message\">" + content + "</div></li>";
+                if (for_who === 0) {
+                    $("#record").append(me);
+                } else {
+                    $("#record").append(he);
+                }
+            }
+
+            /**
+             * 添加图片消息
+             * @param for_who
+             * 0表示加载自己发出去的消息，1表示其他人发来的
+             * @param name
+             * 这条消息的主人
+             * @param time
+             * 时间
+             * @param head_img_src
+             * 头像图片地址
+             * @param chat_img_src
+             * 聊天图片的地址
+             */
+            function chat_img(for_who, name, time, head_img_src, chat_img_src) {
+                var me = "<li class=\"clearfix\"><div class=\"message-data align-right\"><span class=\"message-data-time\">" + time + "</span> &nbsp; &nbsp;<span class=\"message-data-name\">" + name + "</span> <i class=\"fa fa-circle me\"></i><img src=\"" + head_img_src + "\"/></div><div class=\"message other-message float-right\" style='background: transparent'><a href=\"" + chat_img_src + "\"><img src=\"" + chat_img_src + "\" width=\"375px\" height=\"280px\"/></a></div></li>";
+                var he = "<li><div class=\"message-data\"><img src=\"" + head_img_src + "\"/><span class=\"message-data-name\"><i class=\"fa fa-circle online\"></i>" + name + "</span><span class=\"message-data-time\">" + time + "</span></div><div class=\"message my-message\" style='background: transparent'><a href=\"" + chat_img_src + "\"><img src=\"" + chat_img_src + "\" width=\"375px\" height=\"280px\"/></a></div></li>";
+                if (for_who === 0) {
+                    $("#record").append(me);
+                } else {
+                    $("#record").append(he);
+                }
+            }
+
+            /**
+             * 添加图片消息
+             * @param for_who
+             * 0表示加载自己发出去的消息，1表示其他人发来的
+             * @param name
+             * 这条消息的主人
+             * @param time
+             * 时间
+             * @param head_img_src
+             * 头像图片地址
+             * @param emoji_img_src
+             * 表情图片的地址
+             */
+            function chat_emoji(for_who, name, time, head_img_src, emoji_img_src) {
+                var me = "<li class=\"clearfix\"><div class=\"message-data align-right\"><span class=\"message-data-time\">" + time + "</span> &nbsp; &nbsp;<span class=\"message-data-name\">" + name + "</span> <i class=\"fa fa-circle me\"></i><img src=\"" + head_img_src + "\"/></div><div class=\"message other-message float-right\" style='background: transparent'><img style='margin-left: 120px' src=\"" + emoji_img_src + "\" width=\"250px\" height=\"240px\"/></div></li>";
+                var he = "<li><div class=\"message-data\"><img src=\"" + head_img_src + "\"/><span class=\"message-data-name\"><i class=\"fa fa-circle online\"></i>" + name + "</span><span class=\"message-data-time\">" + time + "</span></div><div class=\"message my-message\" style='background: transparent'><img src=\"" + emoji_img_src + "\" width=\"250px\" height=\"px\"/></div></li>";
+                if (for_who === 0) {
+                    $("#record").append(me);
+                } else {
+                    $("#record").append(he);
+                }
+            }
+
+            /**
+             * 连接建立时，要求用户输入昵称
+             */
+            function show_prompt() {
+                var start_name = prompt('输入你的昵称：', '');
+                if (start_name === "" || start_name === null) {
+                    start_name = "游客";
+                }
+                return start_name;
+            }
+
+            /**
+             *让滚动条到底
+             */
+            function scroll_buttom() {
+                var scrollDiv = document.getElementById("div1");
+                scrollDiv.scrollTop = scrollDiv.scrollHeight;
+            }
+
+            /**
+             *发送文本框的信息
+             */
+            function sendMessage() {
+                //来自show_prompt()的名字
+                var from_name = start_name;
+                //根据聊天标题获取聊天对象
+                var to_name = $("#chat_with").text();
+                //根据聊天标题获取聊天对象
+                var chat_obj = $("#chat_type").val();
+
+                //获取输入框的聊天数据
+                var input = $("#message-to-send").val();
+                if (to_name === "") {
+                    alert("请选择聊天对象");
+                } else if (input === "") {
+                    alert("发送内容不能为空")
+                } else if (to_name === start_name) {
+                    alert("自己跟自己聊，那你得多孤独啊")
+                } else {
+                    var info = '{"type":"text","obj":"' + chat_obj + '","from_name":"' + from_name + '","to_name":"' + to_name + '","content":"' + input + '"}';
+                    //console.log("以下这条是客户端发出的");
+                    //console.log(info);
+                    //发送数据
+                    ws.send(info);
+                    //清空输入框
+                    $("#message-to-send").val("");
+                }
+            }
+
+            //加载表情
+            loadEmoji();
+            //建立连接
+            const ws = new WebSocket("ws://120.78.78.42:8282");
+            //获得昵称
+            const start_name = show_prompt();
+
+            /**
+             * 连接打开时，要求输入昵称
+             * 清空联系人列表
+             * */
+            ws.onopen = function (e) {
+                //清空联系人列表
+                $("#list").empty();
+                console.log("连接成功");
+            };
+            /**
+             * 根据服务器返回消息类型做处理
+             * */
+            ws.onmessage = function (e) {
+                //拼装鉴权信息并且发送
+                var password = 123456;
+
+                //解析json数据
+                var data = JSON.parse(e.data);
+                var type = data.type;
+                var obj = data.obj;
+
+                switch (type) {
+                    //服务端返回init表示连接成功
+                    case "init":
+                        //提示我已经登入
+                        chat_text(0, "系统提示", data.time, "37.png", start_name + "进入聊天室");
+                        var auth_info = '{"type":"auth","from_name":"' + start_name + '","password":"' + password + '"}';
+                        ws.send(auth_info);
+                        console.log("现在发送鉴权信息：" + auth_info);
+                        break;
+
+                    //收到文本信息，进行处理
+                    case "text":
+                        console.log("答应服务器返回信息");
+                        //console.log(data);
+                        //如果返回的from_name 等于自己的
+                        if (data.from_name === start_name) {
+                            chat_text(0, data.from_name, data.time, "39.png", data.content);
+                        } else {
+                            if (obj === "groups") {
+                                chat_text(1, data.to_name, data.time, "38.png", data.content);
+                                $("#chat_with").text(data.to_name);
+                                $("#chat_type").val(obj);
+                            } else {
+                                $("#chat_with").text(data.from_name);
+                                $("#chat_type").val(obj);
+                                chat_text(1, data.from_name, data.time, "38.png", data.content);
+                            }
+
+                        }
+                        scroll_buttom();
+                        break;
+                    //收到图片信息，进行处理
+                    case "img":
+                        if (data.from_name === start_name) {
+                            chat_img(0, data.from_name, data.time, "39.png", data.content);
+                        } else {
+                            //如果是对方发来的信息
+                            //设置聊天对象
+                            if (obj === "firends") {
+                                $("#chat_with").text(data.from_name);
+                            } else {
+                                $("#chat_with").text(data.to_name);
+                            }
+                            //设置聊天对象为firends
+                            $("#chat_type").val(data.obj);
+                            //写到面板
+                            chat_img(1, data.from_name, data.time, "38.png", data.content);
+                        }
+                        //滚动条保持在底部
+                        scroll_buttom();
+                        break;
+                    //收到表情信息
+                    case "emoji":
+                        if (data.from_name === start_name) {
+                            chat_emoji(0, data.from_name, data.time, "39.png", data.content);
+                        } else {
+                            //如果是对方发来的信息
+                            //设置聊天对象
+                            if (obj === "firends") {
+                                $("#chat_with").text(data.from_name);
+                            } else {
+                                $("#chat_with").text(data.to_name);
+                            }
+                            //设置聊天对象为firends
+                            $("#chat_type").val(data.obj);
+                            //写到面板
+                            chat_emoji(1, data.from_name, data.time, "38.png", data.content);
+                        }
+                        //滚动条保持在底部
+                        scroll_buttom();
+                        break;
+                    //收到好友列表数据
+                    case "firends":
+                        var firends_list = data.firends_list;
+                        $("#list-firends").empty();
+                        firends_list.forEach(function (index, value) {
+                            load_firends("38.png", index[0], index[1]);
+                        });
+                        break;
+                    //收到分组列表数据
+                    case "groups":
+                        var groups_list = data.groups_list;
+                        $("#list-groups").empty();
+                        for (x in groups_list) {
+                            load_groups("39.png", groups_list[x], 15);
+                        }
+                        break;
+                    //收到加入群成功消息
+                    case "in_group":
+                        chat_text(0, "系统提示", data.time, "37.png", data.who + "加入群聊天");
+                        break;
+                    case "hint":
+                        console.log("系统提示信息->" + data.content);
+                        break;
+                    case "ping":
+                    // console.log("心跳检测");
+                }
+
+            };
+            /**
+             * 获取聊天人的信息并清空消息列表
+             */
+            $(".list").on('click', "li", function () {
+                var from_name = start_name;
+                //获取聊天的是好友还是群
+                var obj = $(this).children("input").val();
+                //获取聊天对象的昵称
+                var name = $(this).find(".name").text();
+
+                if (obj === "groups") {
+                    var flag = confirm("是否加入该群聊");
+                    if (flag === true) {
+                        var info = '{"type":"join_groups","from_name":"' + from_name + '","group_name":"' + name + '"}';
+                        ws.send(info);
+                    }
+                }
+                //写到与谁聊天那里
+                $("#chat_with").text(name);
+                //写到当前是好友还是群
+                $("#chat_type").val(obj);
+                //清空聊天记录
+                $("#record").empty();
+            });
+            /**
+             * 点击发送按钮触发的事件
+             * */
+            $("#send").click(function () {
+                sendMessage();
+            });
+            /**
+             *监听回车事件
+             */
+//            $("#message-to-send").keydown(function (event) {
+//                if (event.which===13){
+//                    sendMessage();
+//                }
+//            });
+
+            //点击弹出表情面板
+            $("#emoji").click(function () {
+                $(".emoji-box").toggle();
+            });
+            /*
+            *选中表情时发送出去
+            */
+            $(".emoji-list").on("click", "li", function () {
+
+                //来自show_prompt()的名字
+                var from_name = start_name;
+
+                //根据聊天标题获取聊天对象
+                var to_name = $("#chat_with").text();
+
+                //获取聊天是个人还是群组
+                var obj = $("#chat_type").val();
+
+                if (obj === "robot") {
+                    alert("该功能开发中，敬请等待");
+                    return;
+                }
+
+                //获取表情包资源
+                var emoji_input = $(this).children("img").attr("src");
+
+                if (to_name === "") {
+                    alert("请选择聊天对象");
+                } else if (emoji_input === "") {
+                    alert("发送内容不能为空")
+                } else {
+                    var info = '{"type":"emoji","obj":"' + obj + '","from_name":"' + from_name + '","to_name":"' + to_name + '","content":"' + emoji_input + '"}';
+                    //发送数据
+                    ws.send(info);
+                    //清空输入框
+                    $("#message-to-send").val("");
+                }
+                //隐藏表情面板
+                $(".emoji-box").hide();
+            });
+            /*
+            *
+            * 鼠标离开时隐藏表情面板
+            */
+            $(".emoji-box").mouseleave(function () {
+                $(".emoji-box").hide();
+            });
+            /*
+            *当图片选择框改变时触发的函数
+            * 上传图片
+            */
+            $("#fileElem").change(function () {
+                //来自show_prompt()的名字
+                var from_name = start_name;
+                //根据聊天标题获取聊天对象
+                var to_name = $("#chat_with").text();
+
+                //获取聊天是个人还是群组
+                var obj = $("#chat_type").val();
+
+                if (obj === "robot") {
+                    alert("该功能开发中，敬请等待");
+                    return;
+                }
+
+                //获取输入框图片
+                var file = document.getElementById("fileElem").files[0];
+                if (!/image\/\w+/.test(file.type)) {
+                    alert("请上传图片！");
+                    return false;
+                }
+                //实例化文件读取器
+                $("#message-to-send").val("系统提示：图片发送中····\n系统提示：图片发送中····\n系统提示：图片发送中····\n");
+                var reader = new FileReader();
+                //根据图片地址读
+                reader.readAsDataURL(file);
+                //读取完成时
+                reader.onload = function (e) {
+                    //this.result代表读的结果，即二进制流
+                    var img_data = '{"type":"img","obj":"' + obj + '","from_name":"' + from_name + '","to_name":"' + to_name + '","content":"' + this.result + '"}';
+                    //console.log(img_data);
+                    //发送数据
+                    ws.send(img_data);
+                };
+                setTimeout(function () {
+                    $("#message-to-send").val("");
+                }, 300);
+
+            });
+
+            //点击折叠好友列表
+            $("#firends-body").hide();
+            $("#firends").click(function () {
+                $("#firends-body").toggle();
+            });
+            //点击折叠群组列表
+            $("#groups-body").hide();
+            $("#groups").click(function () {
+                $("#groups-body").toggle();
+            });
+
+        });
+    </script>
+    <link rel="stylesheet" href="base.css">
+
+</head>
+<body>
+<!--<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>-->
+
+<div class="container clearfix">
+    <div class="people-list" id="people-list">
+        <div class="search">
+            <input type="text" placeholder="搜索联系人"/>
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="people-box">
+            <div class="group-header" id="firends">
+                <i class="fa fa-angle-down"></i>&nbsp;&nbsp;&nbsp;
+                <p class="group-title">我的好友</p>
+                <span></span>
+            </div>
+            <div class="group-body" id="firends-body">
+                <ul class="list" id="list-firends">
+                    <li class="clearfix list_people">
+                        <input type="text" value="firends" hidden>
+                        <img src="38.png"/>
+                        <div class="about">
+                            <div class="name">夏洛</div>
+                            <div class="status">
+                                <i class="fa fa-circle online"></i> 在线
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix list_people">
+                        <input type="text" value="firends" hidden>
+                        <img src="38.png"/>
+                        <div class="about">
+                            <div class="name">马冬梅</div>
+                            <div class="status">
+                                <i class="fa fa-circle online"></i> 在线
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="group-header" id="groups">
+                <i class="fa fa-angle-down"></i>&nbsp;&nbsp;&nbsp;
+                <p class="group-title">我的群们</p>
+                <span></span>
+            </div>
+            <div class="group-body" id="groups-body">
+                <ul class="list" id="list-groups">
+                    <li class="clearfix list_people">
+                        <input type="text" value="groups" hidden>
+                        <img src="38.png"/>
+                        <div class="about">
+                            <div class="name">猴子派来的陡壁</div>
+                            <div class="status">
+                                <i class="fa fa-user-o online"></i>
+                                <span>28/51</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix list_people">
+                        <input type="text" value="groups" hidden>
+                        <img src="38.png"/>
+                        <div class="about">
+                            <div class="name">马爸爸扶贫群</div>
+                            <div class="status">
+                                <i class="fa fa-user-o online"></i>
+                                <span>28/51</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat">
+        <div class="chat-header clearfix">
+            <img src="38.png" alt="avatar"/>
+
+            <div class="chat-about">
+                <div class="chat-with">正在和<span id="chat_with"></span>聊天</div>
+                <input type="text" id="chat_type" value="" hidden>
+                <div class="chat-num-messages">怎么二十多年到头来，还在人海里浮沉</div>
+            </div>
+            <i class="fa fa-star"></i>
+        </div>
+        <!-- end chat-header -->
+
+        <div class="chat-history" id="div1">
+            <ul id="record">
+
+
+            </ul>
+
+        </div>
+        <!-- end chat-history -->
+        <div class="chat-message clearfix">
+            <textarea name="message-to-send" id="message-to-send" placeholder="说点什么吧" rows="3"></textarea>
+            <i class="fa fa-smile-o fa-2x" id="emoji"></i> &nbsp;&nbsp;&nbsp;
+
+            <label for="fileElem"> <i class="fa fa-picture-o fa-2x "></i></label>
+            <input type="file" id="fileElem" multiple accept="image/*" style="display:none">
+            <button id="send">发送</button>
+        </div>
+        <!-- end chat-message -->
+
+    </div>
+    <!-- end chat -->
+</div>
+<div class="emoji-box">
+    <div class="emoji-wrapper">
+        <ul class="emoji-list">
+        </ul>
+    </div>
+</div>
+<!-- end container -->
+</body>
+</html>

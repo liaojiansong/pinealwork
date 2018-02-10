@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Pinenuts Hotel</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="__STATIC__/index/css/style.css">
+
+    <link rel="stylesheet" href="__STATIC__/index/css/responsive.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+</head>
+
+<body>
+
+<!-- main wrapper -->
+
+<div class="wrapper">
+
+    <!-- header -->
+
+    <header class="header">
+
+        <div class="header-top">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+
+                        <div class="header-location"><i class="fa fa-home"></i> <a href="#">桂林理工大学</a></div>
+
+                        <div class="header-email"><i class="fa fa-envelope-o"></i> <a href="mailto:support@email.com">729631422@qq.com</a>
+
+                        </div>
+
+                        <div class="header-phone"><i class="fa fa-phone"></i> <a href="#">18577387793</a></div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+
+                        <div class="header-social pull-right">
+
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="header-bottom">
+
+            <nav class="navbar navbar-universal navbar-custom">
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-lg-3">
+
+                            <div class="logo"><a href="index.html" class="navbar-brand page-scroll"><img
+
+                                    src="__STATIC__/index/images/logo/logo-1.png" width="200"  height="60" alt="logo"></a></div>
+
+                        </div>
+
+                        <div class="col-lg-9">
+
+                            <div class="navbar-header">
+
+                                <button type="button" data-toggle="collapse" data-target=".navbar-main-collapse"
+
+                                        class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span
+
+                                        class="icon-bar"></span><span class="icon-bar"></span><span
+
+                                        class="icon-bar"></span></button>
+
+                            </div>
+
+                            <div class="collapse navbar-collapse navbar-main-collapse">
+
+                                <ul class="nav navbar-nav navbar-right">
+
+                                    <li><a href="{:url('index')}">主页</a></li>
+
+                                    <li><a href="{:url('allrooms')}">所有客房</a></li>
+
+                                    <li><a href="{:url('about')}">关于我们</a></li>
+
+                                    <li><a href="#comment">联系我们</a></li>
+
+                                    <li><a href="{:url('admin/login/login')}">后台入口</a></li>
+
+                                    <!--<li><a href="{:url('detail')}">房间细节</a></li>-->
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </div>
+
+    </header>

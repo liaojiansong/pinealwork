@@ -1,0 +1,69 @@
+﻿{include file="public/head" /}
+    <!-- /header -->
+    <!-- breadcrumbs -->
+    <section class="breadcrumbs" style="background-image: url(__STATIC__/index/images/breadcrumbs/best-room.jpg)">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="h1">选择房型</h1>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li><a href="{:url('index')}">主页</a><i class="fa fa-angle-right"></i></li>
+              <li class="active">房间</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /breadcrumbs -->
+    <!-- chose best rooms -->
+    <section class="gallery best-room">
+      <div class="container">
+        <h2 class="h2">最适合您的舒适客房</h2>
+            <ul class="portfolio-sorting">
+              <li><a href="#" data-group="all" class="active">全部</a></li>
+              <li><a href="#" data-group="lux">豪华房</a></li>
+                <li><a href="#" data-group="double">双人房</a></li>
+                <li><a href="#" data-group="standard">标准</a></li>
+              <li><a href="#" data-group="economic">经济</a></li>
+            </ul>
+      <div class="container best-room-carousel">
+        <div id="grid" class="row best-room_ul best-rooms-isotope-page">
+          {volist name="show" id="vo"}
+          <div data-groups="[&quot;{$vo.depart}&quot;, &quot;standard&quot;]" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 best-room_li">
+              <div class="best-room_img">
+                <a href="#"><img src="__UPLOAD__/{$vo.thumb}" alt=""></a>
+                <div class="best-room_overlay">
+                  <div class="overlay_icn"><a href="{:url('detail',array('id'=>$vo.id))}"></a></div>
+                </div>
+              </div>
+              <div class="best-room-info">
+                <div class="best-room_t"><a href="{:url('detail',array('id'=>$vo.id))}">{$vo['type']}</a></div>
+                <div class="best-room_desc">{$vo.description|substr=0,156}······</div>
+                <div class="best-room_price">
+                  <span>{$vo.price}元</span> / 天
+                </div>
+                <div class="best-room_footer">
+                  <div class="footer_el __bed"><i class="fa fa-bed"></i> 2</div>
+                  <div class="footer_el __ppl"><i class="fa fa-user"></i> 4</div>
+                  <div class="footer_el __wifi">Free WiFi</div>
+                  <div class="footer_el __area">{$vo.area} 平米</div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+          </div>
+            {/volist}
+
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- /choose best rooms -->
+  <!-- footer -->
+{include file="public/footer" /}
+

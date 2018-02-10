@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商品详情页</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+<script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+<script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+<script>
+
+</script>
+    <style>
+        .am-datepicker-days {
+            margin: 2%;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+	<header data-am-widget="header" class="am-header am-header-default my-header">
+      <div class="am-header-left am-header-nav">
+        <a href="{:url('index')}" class="">
+          <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+      </div>
+      <h1 class="am-header-title">
+        <a href="#title-link" class="">房间详情</a>
+      </h1>
+
+    </header>
+    <!-- banner -->
+    <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
+      <ul class="am-slides">
+        <li>
+          <img src="__UPLOAD__/{$info['thumb']}">
+        </li>
+        <li>
+          <img src="__UPLOAD__/{$info['thumb_bed']}">
+        </li>
+        <li>
+          <img src="__UPLOAD__/{$info['thumb_bathroom']}">
+        </li>
+        <!--<li>-->
+          <!--<img src="http://s.amazeui.org/media/i/demos/bing-4.jpg">-->
+        <!--</li>-->
+      </ul>
+    </div>
+	<div class="gray-panel">
+    	<div class="paoduct-title-panel">
+        	<h1 class="product-h1">{$info['type']}</h1>
+            <p><span class="am-fr product-title-gray-text"><i class="am-icon-star"></i>收藏</span><span class="bold">价格：</span><span class="red2">￥{$info['price']}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="product-title-gray-text">积分：300积分</span></p>
+        </div>
+
+        <div class="" style="background-color: #f7f8f8;margin: 2%">
+
+
+                <div style="margin-bottom: 4%;margin-top:4%;background-color: #0f9ae0">
+
+
+
+                </div>
+
+                <section data-am-widget="accordion" class="am-accordion  am-radius "
+                         data-am-accordion='{  }' >
+                    <dl class="am-accordion-item">
+                        <dt class="am-accordion-title am-btn am-btn-danger btn-loading-example am-radius" style="width: 100%" id="buy" >
+                            立即预订
+                        </dt>
+                        <!--<script>-->
+                            <!--$("#buy").click(function () {-->
+                                <!--$("#buy").text('填写订单');-->
+                            <!--});-->
+                        <!--</script>-->
+                        <dd class="am-accordion-bd am-collapse am-in">
+                            <form class="am-form" action="{:url('booking')}" method="post">
+                                <div class="am-form-group am-form-icon" style="margin-top: 4%">
+                                    <i class="am-icon-calendar" style="color:#78c3ca"></i>
+                                    <input type="text" class="am-form-field  my-radius" name="check_in"
+                                           data-am-datepicker readonly style="background-color: white"
+                                           placeholder="请输入入住日期" required >
+                                </div>
+                                <div class="am-form-group am-form-icon">
+                                    <i class="am-icon-calendar" style="color:#f09513"></i>
+                                    <input type="text" class="am-form-field  my-radius" name="check_out"
+                                           data-am-datepicker readonly style="background-color: white"
+                                           placeholder="请输入离店日期" required >
+                                </div>
+                                <div class="am-form-group am-form-icon">
+                                    <i class="am-icon-user" style="color:#329cd9"></i>
+                                    <input type="text" class="am-form-field  my-radius" name="name"
+                                           placeholder="入住人真实姓名" required minlength="2">
+                                </div>
+                                <div class="am-form-group am-form-icon">
+                                    <i class="am-icon-credit-card" style="color:#329cd9"></i>
+                                    <input type="text" class="am-form-field  my-radius" name="id_card"
+                                           placeholder="入住身份证号码" required pattern="(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)">
+                                </div>
+                                <div class="am-form-group am-form-icon">
+                                    <i class="am-icon-phone" style="color:#e9c740"></i>
+                                    <input type="text" class="am-form-field  my-radius" name="phone"
+                                           placeholder="入住人手机号码" required pattern="^1[34578]\d{9}$">
+                                </div>
+                                <input type="hidden" name="room_id"  class="am-hide" value="{$info['id']}">
+                                <input type="hidden" name="__token__" class="am-hide" value="{$Request.token}"/>
+
+                                <p class="am-text-center">
+                                    <input type="submit"
+                                           class="am-btn am-btn-success btn-loading-example am-radius"
+                                           style="width: 100%" value="提交订单"/>
+                                </p>
+                            </form>
+                        </dd>
+                    </dl>
+                </section>
+        </div>
+    </div>
+
+            <!-- 商品详情 -->
+        
+        <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+          <ul class="am-tabs-nav am-cf">
+            <li class="am-active">
+              <a href="[data-tab-panel-0]">详情</a>
+            </li>
+
+            <li class="">
+              <a href="[data-tab-panel-2]">评价</a>
+            </li>
+          </ul>
+          <div class="am-tabs-bd">
+            <div data-tab-panel-0 class="am-tab-panel am-active">{$info['description']}</div>
+
+          <div data-tab-panel-2 class="am-tab-panel ">
+          <div class="am-cf am-padding-sm" >
+                <ul class="am-comments-list am-comments-list-flip">
+                    {volist name="comment" id="co"}
+                    <li class="am-comment">
+                      <a href="">
+                        <img class="am-comment-avatar" src="__STATIC__/moblie/default/img1.jpg" alt=""/> <!-- 头像 -->
+                      </a>
+                      <div class="am-comment-main">
+                        <header class="am-comment-hd">
+                          <div class="am-comment-meta">
+                            <a href="#link-to-user" class="am-comment-author"></a>{$co.customer}
+                            <time datetime="2013-07-27T04:54:29-07:00" title="最后的通信时间" class="am-fr">
+                                {$co.title}</time>
+                          </div>
+                        </header>
+                        <div class="am-comment-bd am-text-sm">
+                            {$co.content}
+                        </div>
+                      </div>
+                    </li>
+                    {/volist}
+
+                </ul>
+          </div>
+          </div>
+        </div>
+        </div>
+</div>
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2017 Pinenuts Hotel</p>
+            <p>桂ICP备729631422</p>
+        </div>
+    </footer>
+    <!--底部-->
+
+</body>
+</html>

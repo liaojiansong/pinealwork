@@ -1,0 +1,141 @@
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="footer-top_logo"><a href="#"><img src="__STATIC__/index/images/logo/logo-1.png" alt="Footer logo"
+                                                                  width="200" height="60"></a></div>
+                    <div class="footer-top_txt">
+                        <p style="text-indent: 2em">让松果酒店激发生命中最有意义的旅程,我们为您提供真诚的关怀以及卓越的产品和服务,我们始终相信:唯有伟大的故事，方能缔造一个传奇</p>
+                        <p style="text-indent: 2em">松果酒店将始终秉持着不可动摇的信条和坚定不移地致力于服务的企业理念，在客户的认可和支持下砥砺前行。</p>
+                    </div>
+                    <div class="footer-top_address">
+                        <div><i class="fa fa-phone"></i> 电话: <span>18577387793</span></div>
+                        <div><i class="fa fa-envelope-o"></i> 邮箱: <span><a href="https://mail.qq.com/cgi-bin/loginpage?lang=cn">729631422@qq.com</a></span>
+                        </div>
+                        <div><i class="fa fa-home"></i> 地址: <span>桂林理工大学(雁山)</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="footer-top_rooms">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 marg-sm-50 col-xs-12">
+                    <div class="footer-top_contact_form">
+                        <div class="contact_form_t">你的留言与评价</div>
+                        <form action="{:url('index/deal')}" method="POST" id="comment" class="row form-horizontal form-wizzard">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="customer" class="form-control" placeholder="名字 ...">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" name="email" class="form-control" placeholder="邮箱 ...">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <input name="title" class="form-control" placeholder="主题..." type="text">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <textarea rows="6" name="content" class="form-control" placeholder="欢迎留下您的评价..."></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                <span type="submit" id="send" class="btn btn-default">发送</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="footer-bottom_copy">Copyright &copy; 2017.Company name All rights reserved.<a
+                            target="_blank" href="#">本网站由小松果提供技术支持</a></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="footer-bottom_links">
+                        <a class="active" href="index.html">主页</a>
+                        <a href="#">预订</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /footer -->
+<!-- Scripts -->
+</div>
+<!--<script type="text/javascript" src="__STATIC__/index/js/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/tether.min.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/index/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/index/js/jquery-ui.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/moment.min.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/date.zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery.smartmenus.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery.parallax.min.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery.shuffle.min.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/owl.carousel.min.js"></script>
+<!--<script type="text/javascript" src="http://ditu.google.cn/maps/api/js"></script>-->
+<!--<script type="text/javascript" src="__STATIC__/index/js/map.js"></script>-->
+<script type="text/javascript" src="__STATIC__/index/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#send").click(function () {
+            $.ajax({
+                type: "post",
+                url: "{:url('deal')}",
+                data: $("#comment").serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (typeof data ==='number'){
+                        if (data === 1) {
+                            alert('发送成功');
+                        }
+                        if (data === 0) {
+                            alert('留言失败');
+                        }
+                    }else {
+                        alert(data);
+                    }
+                }
+            });
+        });
+        function checkForm () {
+            $("#book").click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "{:url('book')}",
+                    data: $("#booking").serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (typeof data === 'number') {
+                            if (data === 1) {
+                                alert('发送成功');
+                            }
+                            if (data === 0) {
+                                alert('留言失败');
+                            }
+                        } else {
+                            alert(data);
+                        }
+                    }
+                });
+            });
+        }
+
+
+    });
+    $(function () {
+        $.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
+        $("#check_in").datepicker({minDate: 0, maxDate: "30D"});
+        $("#check_out").datepicker({minDate: 0, maxDate: "30D"});
+        $("#check_in").datepicker("option", "dateFormat", "yy-mm-dd");
+        $("#check_out").datepicker("option", "dateFormat", "yy-mm-dd");
+    });
+</script>
+<!-- /Scripts -->
+</body>
+</html>

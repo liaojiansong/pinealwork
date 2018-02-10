@@ -1,0 +1,23 @@
+<!--Basic Scripts-->
+<script type="text/javascript" src="__STATIC__/admin/style/jquery_002.js"></script>
+<!--<script src="__STATIC__/admin/style/bootstrap.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/style/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/style/date.zh-cn.js"></script>
+<!--Beyond Scripts-->
+<script type="text/javascript" src="__STATIC__/admin/style/beyond.js"></script>
+<!--<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>-->
+<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
+        $("#check_in").datepicker({minDate: 0, maxDate: "30D"});
+        $("#check_out").datepicker({minDate: 0, maxDate: "30D"});
+        $("#check_in").datepicker("option", "dateFormat", "yy-mm-dd");
+        $("#check_out").datepicker("option", "dateFormat", "yy-mm-dd");
+    });
+</script>
+
+
+</body>
+</html>

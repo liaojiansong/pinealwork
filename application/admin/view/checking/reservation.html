@@ -1,0 +1,147 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">入住办理</a>
+                    </li>
+                    <li class="active">预约入住</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll" style="margin-bottom: 50px;">
+                                    <form class="form-inline  table-bordered " action=""
+                                          method="post">
+                                        <div class="form-group" style="margin-right: 80px;margin-left: 180px">
+                                            <label for="exa"><span class="h4">客户姓名:</span></label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                   value="" placeholder="请输入要查询的客户">
+                                        </div>
+
+                                        <span type="button" class="btn btn-danger" id="ser"><span class="h4">立即查询</span>
+                                        </span>
+                                    </form>
+                                </div>
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">客户</th>
+                                            <th class="text-center">手机</th>
+                                            <th class="text-center">身份证</th>
+                                            <th class="text-center">房型</th>
+                                            <th class="text-center">价格</th>
+                                            <th class="text-center">房间号</th>
+                                            <th class="text-center">入住日期</th>
+                                            <th class="text-center">离店日期</th>
+                                            <th class="text-center">状态</th>
+                                            <th class="text-center">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="customer" id="coom"}
+                                        <tr id="clean">
+                                            <td align="center" id="id">{$coom['id']}</td>
+                                            <td align="center" id="ucname">{$coom['name']}</td>
+                                            <td align="center" id="phone">{$coom['phone']}</td>
+                                            <td align="center" id="id_card">{$coom['id_card']}</td>
+                                            <td align="center" id="type">{$coom['type']}</td>
+                                            <td align="center" id="price">{$coom['price']}</td>
+                                            <td align="center" id="room">{$coom['tmp_room']}</td>
+                                            <td align="center" id="check_in">{$coom['check_in']}</td>
+                                            <td align="center" id="check_out">{$coom['check_out']}</td>
+                                            <td align="center" id="status">{if condition="$coom['status'] eq 1" } 已入住 {else /} 待入住 {/if}</td>
+                                            <td align="center">
+                                                <button class="btn btn-primary btn-sm shiny fa fa-edit" value="{$coom['id']}">入住</button>
+                                            </td>
+                                        </tr>
+
+                                        {/volist}
+
+
+
+                                        </tbody>
+                                    </table>
+                                    <!--</div>-->
+                                </div>
+                                <div style="margin-top: 25px">{$customer->render()}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- 页面内容结束 -->
+        </div>
+    </div>
+    <!--尾部开始-->
+    {include file="public/footer" /}
+    <!--尾部结束-->
+    <script>
+        $(document).ready(function () {
+            $("#ser").click(function () {
+                $.ajax({
+                    type:"post",
+                    url:"{:url('deal')}",
+                    data:{name:$("#name").val(),stamp:'reservation'},
+                    dataType:'json',
+                    success:function (data) {
+                        if(data===0) {
+                            alert('没有该用户');
+                        }else{
+                            $("#clean td").remove();
+                            var room = '<td align="center" ' + '>' + data.id + '</td>'
+                                + '<td align="center" ' + '>' + data.name + '</td>'
+                                + '<td align="center" ' + '>' + data.phone + '</td>'
+                                + '<td align="center" ' + '>' + data.id_card + '</td>'
+                                + '<td align="center" ' + '>' + data.type + '</td>'
+                                + '<td align="center" ' + '>' + data.price + '</td>'
+                                + '<td align="center" ' + '>' + data.tmp_room + '</td>'
+                                + '<td align="center" ' + '>' + data.check_in + '</td>'
+                                + '<td align="center" ' + '>' + data.check_out + '</td>'
+                                + '<td align="center" ' + '>' + '待入住' + '</td>'
+                                + '<td align="center" ' + '>' + '<button class="btn btn-primary btn-sm shiny fa fa-edit" value=' + data.id + '>入住</button>' + '</td>';
+                            $("#clean").append(room);
+                        }
+                    }
+                })
+            });
+            $(" button").click(function () {
+                    $.ajax({
+                        type: "post",
+                        url: "{:url('inquire')}",
+                        data: {'id': $(this).val(), 'stamp': $(this).text()},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data === 1) {
+                                alert('操作成功');
+                                window.location.reload();
+                            } else {
+                                alert('操作失败');
+                            }
+                        }
+                    });
+                });
+
+        });
+    </script>

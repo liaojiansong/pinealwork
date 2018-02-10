@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>欢迎预定松果酒店</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+<script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+<script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+    <style>
+        .am-topbar .am-text-ir {
+            display: block;
+            margin-right: 10px;
+            height: 50px;
+            width: 125px;
+            background: url(http://a.static.amazeui.org/assets/i/ui/logo.png) no-repeat left center;
+            -webkit-background-size: 125px 24px;
+            background-size: 125px 24px;
+        }
+
+        .am-datepicker-days {
+            margin: 5%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" style="background-color: #f7f8f8;">
+
+    <header data-am-widget="header" class="am-header am-header-default" style="background-color: white">
+        <div class="am-header-left am-header-nav">
+            <a href="#" class="">
+                <i><img src="__STATIC__/moblie/amazeui/logo-1.png" style="width:10rem;height: 2.6rem"/></i>
+
+            </a>
+        </div>
+        <div class="am-header-right am-header-nav">
+            {if condition="$allroom.status eq 1" }
+
+            <a href="{:url('userinfo')}" class="" >
+
+                <i class="am-icon-user am-icon-fw am-success" style="color: #c85e0b"></i><span
+                    class="am-serif am-text-success">个人中心</span>
+            </a>
+
+            {else /}
+
+            <a href="{:url('login')}" class="">
+
+                <i class="am-icon-user am-icon-fw am-success" style="color: #c85e0b"></i><span
+                    class="am-serif am-text-success" style="color: #5cb85c">登入</span>
+            </a>
+            <a href="{:url('reg')}" class="">
+
+                <i class="am-icon-book am-icon-fw am-success" style="color: #0f9ae0"></i><span
+                    class="am-serif am-text-success" style="color:#5cb85c">注册</span>
+            </a>
+            {/if}
+        </div>
+
+    </header>
+
+    <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
+        <ul class="am-slides">
+            <li>
+                <img src="__STATIC__/moblie/default/slide1.jpg"/></li>
+            <li>
+                <img src="__STATIC__/moblie/default/timg3.jpg" /></li>
+            <li>
+                <img src="__STATIC__/moblie/default/timg.jpg"/></li>
+            <li>
+                <img src="http://s.amazeui.org/media/i/demos/bing-4.jpg">
+            </li>
+        </ul>
+    </div>
+    <!--头部导航-->
+
+    <div class="" style="background-color: #f7f8f8;margin: 2%;margin-top: 5%" >
+        <form class="am-form am-form-inline" method="post" action="{:url('search')}">
+
+            <div class="am-input-group " style="margin-bottom: 2%;background-color: white;">
+                <span class="am-input-group-label" style="background-color: white;border: hidden;padding-left: 0.4em;padding-right: 9.6rem"><i class="am-icon-hotel"></i>&nbsp;房间类型</span>
+
+                <select class="" id="choice" style="border: hidden" name="type">
+                    {volist name="allroom" id="vo"}
+                    <option value="{$vo['id']}">{$vo['type']}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div style="margin-bottom: 4%;margin-top:4%;background-color: #0f9ae0">
+
+                <div class="am-fl" style="width: 50%">
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-calendar" style="margin-right: 1rem"></i>
+                        <input type="text" class="am-form-field" style="border: hidden;background-color: white" name="check_in"
+                               data-am-datepicker="{theme: 'success'}" placeholder="入住日期"  readonly/>
+                    </div>
+                </div>
+                <div class="am-fr" style="width: 50%">
+                    <div class=" am-form-icon">
+                        <i class="am-icon-calendar"></i>
+                        <input type="text" class="am-form-field" style="border: hidden;background-color: white" name="check_out"
+                               data-am-datepicker="{theme: 'success'}" placeholder="离店日期" readonly/>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <input type="submit" class="am-btn am-btn-danger btn-loading-example am-radius"
+                   style="width: 100%" value="查询"/>
+
+
+
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            var startDate = new Date(2014, 11, 20);
+            var endDate = new Date(2014, 11, 25);
+            var $alert = $('#my-alert');
+            $('#my-start').datepicker().on('changeDate.datepicker.amui', function (event) {
+                if (event.date.valueOf() > endDate.valueOf()) {
+                    $alert.find('p').text('开始日期应小于结束日期！').end().show();
+                } else {
+                    $alert.hide();
+                    startDate = new Date(event.date);
+                    $('#my-startDate').text($('#my-start').data('date'));
+                }
+                $(this).datepicker('close');
+            });
+
+            $('#my-end').datepicker().on('changeDate.datepicker.amui', function (event) {
+                if (event.date.valueOf() < startDate.valueOf()) {
+                    $alert.find('p').text('结束日期应大于开始日期！').end().show();
+                } else {
+                    $alert.hide();
+                    endDate = new Date(event.date);
+                    $('#my-endDate').text($('#my-end').data('date'));
+                }
+                $(this).datepicker('close');
+            });
+        });
+    </script>
+    
+    <div class="am-cf uchome-apps">
+    	<ul class="am-avg-sm-3 uchome-apps-ul">
+        	<li><a href="{:url('done',array('flag'=>0))}"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp1.png" class="am-img-responsive" /></p><p class="namep">我的订单</p><p class="lastp">1笔</p></a></li>
+            <li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp2.png" class="am-img-responsive" /></p><p class="namep">积分订单</p><p class="lastp">0笔</p></a></li>
+            <li><a href="#"><p class="imgp"><img src="__STATIC__/moblie/default/uhomeapp3.png" class="am-img-responsive" /></p><p class="namep">团购订单</p><p class="lastp">0笔</p></a></li>
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp4.png" class="am-img-responsive" /></p><p class="namep">购物车</p><p class="lastp">0件</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp5.png" class="am-img-responsive" /></p><p class="namep">积分充值</p><p class="lastp">0个</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp6.png" class="am-img-responsive" /></p><p class="namep">金币记录</p><p class="lastp">0条</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp7.png" class="am-img-responsive" /></p><p class="namep">收藏商品</p><p class="lastp">0件</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp8.png" class="am-img-responsive" /></p><p class="namep">申请提现</p><p class="lastp">￥0</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp9.png" class="am-img-responsive" /></p><p class="namep">我的推广</p><p class="lastp">160</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp10.png" class="am-img-responsive" /></p><p class="namep">我的粉丝</p><p class="lastp">0位</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp11.png" class="am-img-responsive" /></p><p class="namep">我的伙伴</p><p class="lastp">0位</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp12.png" class="am-img-responsive" /></p><p class="namep">我的消息</p><p class="lastp">0条</p></a></li>-->
+            <!--<li><a href="#"><p class="imgp"><img src="default/uhomeapp13.png" class="am-img-responsive" /></p><p class="namep">金币充值</p><p class="lastp">￥0</p></a></li>-->
+        </ul>
+
+    </div>
+    
+    
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+      <div class="am-footer-miscs ">
+        <p>CopyRight©2017 Pinenuts Hotel</p>
+        <p>桂ICP备729631422</p>
+      </div>
+    </footer>
+    <!--底部-->
+
+</div>
+</body>
+</html>

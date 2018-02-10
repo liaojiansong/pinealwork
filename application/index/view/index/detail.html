@@ -1,0 +1,186 @@
+﻿{include file="public/head" /}
+    <!-- /header -->
+    <!-- breadcrumbs -->
+    <section class="breadcrumbs" style="background-image: url(__STATIC__/index/images/breadcrumbs/best-room.jpg)">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="h1">Room Details</h1>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li><a href="{:url('index')}">主页</a><i class="fa fa-angle-right"></i></li>
+              <li><a href="{:url('allrooms')}">房间</a><i class="fa fa-angle-right"></i></li>
+              <li class="active">房间细节</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /breadcrumbs -->
+    <!-- room details-->
+    <section class="room-detail">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row reservation-top">
+              <div class="module __reservation">
+                <div class="module-block">
+                  <form class="form-planner form-horizontal" action="{:url('booking',array('id'=>$info['id']))}" method="post">
+                      <div class="col-md-3 col-xs-12">
+                        <div class="form-group">
+                            <label>入住时间</label>
+                            <input class="form-control " id="check_in" type="text" name="check_in" required placeholder="请输入入住时间">
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-xs-12">
+                        <div class="form-group">
+                            <label>离店时间</label>
+                            <input class="form-control " id="check_out" type="text" name="check_out" required placeholder="请输入离店时间">
+                        </div>
+                      </div>
+                      <div class="col-md-2 col-xs-6">
+                        <div class="form-group">
+                            <label>成人</label>
+                            <div class="theme-select">
+                              <select class="form-control __plannerSelect">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 col-xs-6">
+                        <div class="form-group">
+                            <label>小孩</label>
+                            <div class="theme-select">
+                              <select class="form-control __plannerSelect">
+			  <option value="0">无</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                        </div>
+                      </div>
+                    <!--<input type="text" name="id" value="{$info['id']}" hidden>-->
+                      <div class="col-md-2 col-xs-12">
+                        <div class="form-group">
+                            <!--<a href="{:url('booking',array('id'=>$info['id']))}" class="btn btn-default wizzard-search-btn">立即预订</a>-->
+                          <input type="submit" value="立即预订" class="btn btn-default wizzard-search-btn">
+                        </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 marg50"><h2 class="h2">{$info['type']}</h2></div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="owl-carousel owl_gallery">
+                <div class="item"><img class="img-responsive" src="__UPLOAD__/{$info['thumb']}" width="754" height="440"></div>
+                <div class="item"><img class="img-responsive" src="__UPLOAD__/{$info['thumb_bed']}" width="754" height="440"></div>
+                <div class="item"><img class="img-responsive" src="__UPLOAD__/{$info['thumb_bathroom']}" width="754" height="440"></div>
+              </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="room-detail_overview">
+              <table class="simple">
+                <tr>
+                  <td><strong>价格:</strong></td>
+                  <td><span>{$info['price']}元</span> / 晚</td>
+                </tr>
+                <tr>
+                  <td><strong>面积:</strong></td>
+                  <td>{$info['area']}㎡</td>
+                </tr>
+                <tr>
+                  <td><strong>床:</strong></td>
+                  <td>2 特大床</td>
+                </tr>
+                <tr>
+                  <td><strong>最大入住人数:</strong></td>
+                  <td>5 人</td>
+                </tr>
+                <tr>
+                  <td><strong>Wi-Fi:</strong></td>
+                  <td>免费</td>
+                </tr>
+                <tr>
+                  <td><strong>客房服务:</strong></td>
+                  {if condition="$info['room_service'] eq 1" }
+                  <td>免费</td>
+                  {else /}
+                  <td>收费</td>
+                  {/if}
+                </tr>
+                <tr>
+                  <td><strong>早餐:</strong></td>
+                  {if condition="$info['breakfast'] eq 1" }
+                  <td>免费</td>
+                  {else /}
+                  <td>收费</td>
+                  {/if}
+                </tr>
+                <tr>
+                  <td><strong>洗衣服务:</strong></td>
+                  {if condition="$info['laundry'] eq 1" }
+                  <td>免费</td>
+                  {else /}
+                  <td>收费</td>
+                  {/if}
+                </tr>
+                <tr>
+                  <td><strong>机场快车:</strong></td>
+                  {if condition="$info['shuttle'] eq 1" }
+                  <td>免费</td>
+                  {else /}
+                  <td>收费</td>
+                  {/if}
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- /room details -->
+    <!-- chose best rooms -->
+    <section class="best-room">
+      <div class="container">
+        <h2 class="h2">为你推荐</h2>
+        <div class="best-room-carousel">
+          <ul class="row best-room_ul">
+              {volist name="rec_you" id="vo"}
+            <li class="col-md-4 col-sm-6 col-xs-12 best-room_li">
+              <div class="best-room_img">
+                <a href="#"><img src="__UPLOAD__/{$vo.thumb}" alt=""></a>
+                <div class="best-room_overlay">
+                  <div class="overlay_icn"><a href="{:url('detail',array('id'=>$vo.id))}"></a></div>
+                </div>
+              </div>
+              <div class="best-room-info">
+                <div class="best-room_t"><a href="{:url('detail',array('id'=>$vo.id))}">{$vo.type}</a></div>
+                <div class="best-room_desc">
+                    {$vo.description|substr=0,171}······
+                </div>
+                <div class="best-room_price">
+                  <span>{$vo.price}元/晚</span>
+                </div>
+              </div>
+            </li>
+            {/volist}
+
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- /choose best rooms -->
+{include file="public/footer" /}
+

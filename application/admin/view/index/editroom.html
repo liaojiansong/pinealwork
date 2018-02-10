@@ -1,0 +1,206 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">房型管理</a>
+                    </li>
+                    <!--<li>-->
+                    <!--<a href="#">添加房型</a>-->
+                    <!--</li>-->
+                    <li class="active">编辑房型</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">编辑房型</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <form class="form-horizontal" role="form" action="{:url('upload')}" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="is_show"
+                                                   class="col-sm-2 control-label no-padding-right">是否开售</label>
+
+                                            <div class="col-xs-4">
+                                                <label>
+                                                    {if condition="$one['room_service'] eq 1" }
+                                                    <input class="checkbox-slider slider-icon yesno" name="status" checked="checked" type="checkbox">
+                                                    {else /}
+                                                    <input class="checkbox-slider slider-icon yesno" name="status" type="checkbox">
+                                                    {/if}
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="title"
+                                                   class="col-sm-2 control-label no-padding-right">房间类型</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="type" placeholder="" name="type"
+                                                       value="{$one['type']}" required="" type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title"
+                                                   class="col-sm-2 control-label no-padding-right">房型价格</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="price" placeholder="" name="price"
+                                                       value="{$one['price']}" required="" type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="title"
+                                                   class="col-sm-2 control-label no-padding-right">下属房间</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="rooms" placeholder="" name="rooms"
+                                                       value="{$one['rooms']}" required="" type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="condition"
+                                                   class="col-sm-2 control-label no-padding-right">房型描述</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="condition" value="{$one['description']}" placeholder=""
+                                                       name="description" type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="thumb"
+                                                   class="col-sm-2 control-label no-padding-right">主卧图片</label>
+                                            <div class="col-sm-6">
+                                                <input class="" id="thumb" placeholder="" name="thumb"
+                                                       value="请输入流弊的房名" required type="file">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="thumb_bed"
+                                                   class="col-sm-2 control-label no-padding-right">大床细节</label>
+                                            <div class="col-sm-6">
+                                                <input class="" id="thumb_bed" placeholder="" name="thumb_bed"
+                                                       value="请输入流弊的房名" required type="file">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="thumb_bathroom"
+                                                   class="col-sm-2 control-label no-padding-right">浴室</label>
+                                            <div class="col-sm-6">
+                                                <input class="" id="thumb_bathroom" placeholder="" name="thumb_bathroom"
+                                                       value="请输入流弊的房名" required="" type="file">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="title"
+                                                   class="col-sm-2 control-label no-padding-right">展示缩略图</label>
+                                            <div class="col-sm-6">
+                                                <img src="__UPLOAD__\{$one['thumb']}" width="158px" height="128px">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="is_show"
+                                                   class="col-sm-2 control-label no-padding-right">客房服务</label>
+
+                                            <div class="col-xs-4">
+                                                <label>
+                                                    {if condition="$one['room_service'] eq 1" }
+                                                    <input
+                                                        class="checkbox-slider slider-icon yesno" name="room_service"
+                                                        checked="checked" type="checkbox">
+                                                    {else /}
+                                                    <input
+                                                        class="checkbox-slider slider-icon yesno" name="room_service"
+                                                         type="checkbox">
+                                                    {/if}
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                            <label for="is_show"
+                                                   class="col-sm-2 control-label no-padding-right">早餐服务</label>
+
+                                            <div class="col-xs-4">
+                                                <label>
+                                                   {if condition="$one['breakfast'] eq 1" }
+                                                    <input class="checkbox-slider slider-icon yesno" name="breakfast" checked="checked" type="checkbox">
+                                                    {else /}
+                                                    <input class="checkbox-slider slider-icon yesno" name="breakfast" type="checkbox">
+                                                    {/if}
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                            <label for="is_show"
+                                                   class="col-sm-2 control-label no-padding-right">洗衣服务</label>
+
+                                            <div class="col-xs-4">
+                                                <label>
+                                                    {if condition="$one['laundry'] eq 1" }
+                                                    <input class="checkbox-slider slider-icon yesno" name="laundry" checked="checked" type="checkbox">
+                                                    {else /}
+                                                    <input class="checkbox-slider slider-icon yesno" name="laundry" type="checkbox">
+                                                    {/if}
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                            <label for="is_show"
+                                                   class="col-sm-2 control-label no-padding-right">机场接送</label>
+
+                                            <div class="col-xs-4">
+                                                <label>
+                                                    {if condition="$one['shuttle'] eq 1" }
+                                                    <input class="checkbox-slider slider-icon yesno" name="shuttle" checked="checked" type="checkbox">
+                                                    {else /}
+                                                    <input class="checkbox-slider slider-icon yesno" name="shuttle"  type="checkbox">
+                                                    {/if}
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input name="id" value="{$one['id']}" type="hidden">
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->

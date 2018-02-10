@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/amazeui/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/moblie/default/style.css"/>
+    <script src="__STATIC__/moblie/amazeui/js/jquery.min.js"></script>
+    <script src="__STATIC__/moblie/amazeui/js/amazeui.min.js"></script>
+    <script src="amazeui/js/amazeui.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <header data-am-widget="header" class="am-header am-header-default my-header">
+        <div class="am-header-left am-header-nav">
+            <a href="{:url('userinfo')}" class="">
+                <i class="am-header-icon am-icon-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">订单详情</a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="{:url('index')}" class="">
+                <i class="am-header-icon  am-icon-home"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="gray-panel">
+        <div class="paoduct-title-panel">
+            <h2 class="checkout-h2">
+                {switch name="flag"}
+                {case value="1"}待入住订单{/case}
+                {case value="2"}已完成订单{/case}
+                {case value="3"}已过期订单{/case}
+                {default /}消费记录
+                {/switch}</h2>
+            <div class="cart-list-panel" >
+                <ul class="am-avg-sm-1 cart-panel-ul">
+                    {volist name="record" id="vo"}
+                    <li>
+                        <div class="imgpanel" style="padding-right: 2%;padding-left: 0%" >
+                            <a href="#"><img src="__STATIC__/moblie/default/slide1.jpg" class="am-img-responsive" style="height: 100%"/></a>
+                        </div>
+
+                        <div class="infopanel" style="padding-top: 1.5%;" >
+                            <h3><a href="">{$vo.type}</a></h3>
+                            <p>订单金额 : {$vo.price}元</p>
+                            <p>入住时间 : {$vo.check_in} </p>
+                            <p>离店时间 : {$vo.check_out} </p>
+                            <!--<p>时间范围：<span class="red2 bold">{$vo.check_in}</span> 至 <span class="red2 bold">{$vo.check_out}</span></p>-->
+                            <p>订单编号：<span class="red2 bold">{$vo.order_number}</span></p>
+                            <p>预订时间：<span class="red2 bold">{$vo.time}</span></p>
+                        </div>
+
+                    </li>
+                    {/volist}
+
+
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2017 Pinenuts Hotel</p>
+            <p>桂ICP备729631422</p>
+        </div>
+    </footer>
+    <!--底部-->
+
+</div>
+</body>
+</html>

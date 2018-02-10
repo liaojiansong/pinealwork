@@ -1,0 +1,106 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">房型管理</a>
+                    </li>
+                    <li class="active">房型列表</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <span  tooltip="添加用户" class="btn btn-sm btn-azure btn-addon"
+                        onClick="javascript:window.location.href = '{:url('addroom')}'"><i class="fa fa-plus"></i>
+                    Add
+                </span>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">房型名称</th>
+                                            <th class="text-center">价格</th>
+                                            <th class="text-center">状态</th>
+                                            <th class="text-center">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="allInfo" id="info"}
+                                        <tr>
+                                            <td align="center">{$info['id']}</td>
+                                            <td align="center">{$info['type']}</td>
+                                            <td align="center">{$info['price']}</td>
+                                            <td align="center">{if condition="$info['status'] egt 1"}销售中{else /}停售{/if}</td>
+                                            <td align="center">
+                                                <a href="{:url('editroom',array('id'=>$info['id']))}"
+                                                   class="btn btn-primary btn-sm shiny">
+                                                    <i class="fa fa-edit"></i> 编辑
+                                                </a>
+                                                <button class="btn btn-danger btn-sm shiny fa fa-edit"
+                                                        value="{$info['id']}">&nbsp;删除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            confirm('你确定要删除吗?');
+            $.ajax({
+                type: "post",
+                url: "{:url('deal_room')}",
+                data: {id: $(this).val()},
+                dataType: 'json',
+                success: function (data) {
+                    if (data === 1) {
+                        alert('操作成功');
+                        window.location.reload();
+                    }
+                    if (data === 0) {
+                        alert('操作失败');
+                    }
+                }
+            });
+        });
+
+    });
+</script>

@@ -1,0 +1,148 @@
+﻿{include file="public/head"}
+    <!-- /header -->
+    <!-- parallax -->
+      <section class="bg-parallax parallax-window">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="parallax-text">
+                <h2 class="parallax_t __white">欢迎预订松果酒店</h2>
+                <!--<h2 class="parallax_t __green">我们的经营理念</h2>-->
+                  <p style="text-indent: 2em;color: yellowgreen">诚信”是我们立足之本，“创新”是我们生存之源，“便捷是我们努力的方向，客户的满意是我们最大的收益，客户的信赖则是我们最大的成果”。
+                  </p>
+                <p style="text-indent: 2em;">我们的核心价值观使我们拥有了现在的辉煌成绩。 尽管经历着不断的发展变迁，但我们最重要的核心信念却从未改变。我们始终严于自律，以一丝不苟的态度奉行最严格的道德和法律标准。
+                    我们还将这一原则延伸到我们的日常业务行为、员工政策、供应链政策、环境计划和实践，以及我们致力于维护人权、承担社会责任的坚定承诺中。</p>
+              </div>
+            </div>
+            <!-- planner-->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 planner">
+              <div class="planner-block">
+                <form class="form-planner form-horizontal" method="post" action="{:url('search')}">
+                  <div class="row">
+                    <label for="check_in" class="col-sm-2 control-label">入住时间:</label>
+                    <div class="col-sm-10 form-group">
+                      <input type="text" id="check_in" name="check_in" class="form-control" placeholder="请选择入住日期" required>
+                    </div>
+                    <label for="check_out" class="col-sm-2 control-label">离店时间:</label>
+                    <div class="col-sm-10 form-group">
+                      <input type="text" id="check_out" name="check_out" class="form-control" placeholder="请选择离店日期" required>
+                    </div>
+                      <!--<p>日期：<input type="text" id="datepicker1"></p>-->
+                    <label for="room_need" class="col-sm-2 control-label">预订间数:</label>
+                    <div class="col-sm-10 form-group">
+                      <select class="form-control __plannerSelect" id="room_need" name="room_need">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+
+                      </select>
+                    </div>
+                    <label for="type" class="col-sm-2 control-label">预订间数:</label>
+                    <div class="col-sm-10 form-group">
+                      <select class="form-control __plannerSelect" id="type" name="type">
+                        {volist name="allroom" id="vo"}
+                        <option value="{$vo['id']}">{$vo['type']}</option>
+                        {/volist}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="planner-check-availability">
+                        <input type="submit" value="立即查询" class="btn btn-default">
+                      </div>
+                      <!--<div class="form-group text-center">-->
+                        <!--<input type="submit" value="发送" class="btn btn-default">-->
+                      <!--</div>-->
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /planner-->
+          </div>
+        </div>
+    </section>
+    <!-- /parallax -->
+    <!-- chose best rooms -->
+    <section class="best-room">
+      <div class="container">
+        <div class="title-main">
+          <h2 class="h2">{$title.title}<span class="title-secondary">{$title.small}</span></h2>
+        </div>
+        <div class="best-room-carousel">
+          <ul class="row best-room_ul">
+            {volist name="rec" id="rrr"}
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12 best-room_li">
+              <div class="best-room_img">
+                <a href="#"><img src="__UPLOAD__/{$rrr.thumb}" alt=""></a>
+                <div class="best-room_overlay">
+                  <div class="overlay_icn"><a href="{:url('detail',array('id'=>$rrr.id))}"></a></div>
+                </div>
+              </div>
+              <div class="best-room-info">
+                <div class="best-room_t"><a href="{:url('detail',array('id'=>$rrr.id))}">{$rrr.type}</a></div>
+                <div class="best-room_desc">{$rrr.description|substr=0,171}······</div>
+                <div class="best-room_price">
+                  <span>{$rrr.price}元</span>/天
+                </div>
+              </div>
+            </li>
+            {/volist}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- /choose best rooms -->
+    <!-- lux banner parallax -->
+      <section class="banner bg-parallax2">
+        <div class="overlay"></div>
+      <div class="banner-parallax">
+        <div class="container">
+          <div class="text-center">
+            <h2 class="banner-parallax_t">松果酒店竭诚为您服务!</h2>
+            <div class="banner-parallax_price"><span>永远做您眼中最好的五星级酒店</span></div>
+              <div class="banner-parallax_raiting">
+                  <a href="#"><span class="star __selected"></span></a>
+                  <a href="#"><span class="star __selected"></span></a>
+                  <a href="#"><span class="star __selected"></span></a>
+                  <a href="#"><span class="star __selected"></span></a>
+                  <a href="#"><span class="star __selected"></span></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="testimonials">
+      <div class="container">
+        <div class="title-main"><h2 class="h2">客户评价<span class="title-secondary">客户对我们的评价</span></h2></div>
+        <div class="owl-carousel">
+            {volist name="comment" id="co"}
+          <div class="item">
+            <div class="testimonials-block_i">
+              <div class="testimonials-block_t"><span>{$co.title}</span></div>
+              <p> {$co.content}</p>
+            </div>
+            <div class="testimonials-block_user">
+                <!--<div class="user_img"><img src="__STATIC__/index/images/testimonials/mike.jpg" alt=""></div>-->
+                <div class="user_n">{$co.customer}</div>
+            </div>
+          </div>
+            {/volist}
+
+        </div>
+      </div>
+    </section>
+    <!-- /testiomonials -->
+    <!-- map -->
+    <!--<section class="map">-->
+      <!--<div id="map"></div>-->
+    <!--</section>-->
+    <!-- /map -->
+  <!-- /main wrapper -->
+  <!-- footer -->
+{include file="public/footer"}

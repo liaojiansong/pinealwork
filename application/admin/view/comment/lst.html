@@ -1,0 +1,104 @@
+<!--header开始-->
+{include file="public/header" /}
+<!--header结束-->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- 左边栏开始 -->
+        {include file="public/left" /}
+        <!-- 左边栏结束 -->
+        <!-- 页面内容开始 -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">评论管理</a>
+                    </li>
+                    <li class="active">评论列表</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">客户</th>
+                                            <th class="text-center">邮箱</th>
+                                            <th class="text-center">标题</th>
+                                            <th class="text-center">内容</th>
+                                            <th class="text-center">时间</th>
+                                            <th class="text-center">状态</th>
+                                            <th class="text-center">是否推荐</th>
+                                            <th class="text-center">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="comment" id="co"}
+                                        <tr>
+                                            <td align="center">{$co.id}</td>
+                                            <td align="center">{$co.customer}</td>
+                                            <td align="center">{$co.email}</td>
+                                            <td align="center">{$co.title}</td>
+                                            <td align="center">{$co.content}</td>
+                                            <td align="center">{$co.create_time}</td>
+                                            <td align="center">{if condition="$co.status eq 1"}通过{else /}待审核{/if}</td>
+                                            <td align="center">{if condition="$co.rec eq 1"}推荐{else /}不推荐{/if}</td>
+                                            <td align="center">
+                                                <button class="btn btn-primary btn-sm shiny " value="{$co.id}">推荐</button>
+                                                <button class="btn btn-danger btn-sm shiny " value="{$co.id}">通过</button>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="margin-top: 25px">{$comment->render()}</div>
+
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- 页面内容结束 -->
+    </div>
+</div>
+<!--尾部开始-->
+{include file="public/footer" /}
+<!--尾部结束-->
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.ajax({
+                type: "post",
+                url: "{:url('deal')}",
+                data: {'id': $(this).val(),'stamp': $(this).text()},
+                dataType: 'json',
+                success: function (data) {
+                    if(data===1) {
+                        alert('操作成功');
+                        window.location.reload();
+                    }else {
+                        alert('操作失败');
+                    }
+                }
+            });
+        });
+    });
+</script>
